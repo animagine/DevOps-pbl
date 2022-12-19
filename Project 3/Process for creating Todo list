@@ -1,0 +1,25 @@
+#Once virtual server is setup on AWS proceed to do the followwing
+
+
+## update and upgrade ubuntu
+sudo apt update
+sudo apt upgrade
+
+
+## install nodejs on the server from Ubuntu repo
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+node -v
+npm -v
+
+
+## Setup application
+mkdir Todo
+
+#check that directory was created successfully
+ls 
+
+#change into the application directory and initialise the node server
+cd Todo
+npm init
+
