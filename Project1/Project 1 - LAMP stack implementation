@@ -1,4 +1,4 @@
-###### STEP1 - installing Apache2 and updating the firewall #######
+#STEP1 - installing Apache2 and updating the firewall
 
 #update a list of packages in package manager
 sudo apt update
