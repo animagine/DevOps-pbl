@@ -1,4 +1,4 @@
-#Once virtual server is setup on AWS proceed to do the followwing
+# Once virtual server is setup on AWS proceed to do the followwing
 
 
 ## update and upgrade ubuntu
@@ -16,10 +16,10 @@ npm -v
 ## Setup application
 mkdir Todo
 
-#check that directory was created successfully
+# check that directory was created successfully
 ls 
 
-#change into the application directory and initialise the node server
+# change into the application directory and initialise the node server
 cd Todo
 npm init
 
