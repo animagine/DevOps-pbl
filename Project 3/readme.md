@@ -29,7 +29,38 @@ mkdir Todo
 ls 
 
 # change into the application directory and initialise the node server
-cd Todo
-npm init
+`cd Todo`
+` npm init`
 
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+## Installing Expressjs
+`npm install express`
+`touch index.js`
+`vim index.js`
+
+-install dotenv
+npm install dotenv
+
+- update index.js file with the following code
+```
+const express = require('express');
+require('dotenv').config();
+
+const app = express();
+
+const port = process.env.PORT || 5000;
+
+app.use((req, res, next) => {
+res.header("Access-Control-Allow-Origin", "\*");
+res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+next();
+});
+
+app.use((req, res, next) => {
+res.send('Welcome to Express');
+});
+
+app.listen(port, () => {
+console.log(`Server running on port ${port}`)
+});
+
+```
