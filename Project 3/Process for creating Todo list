@@ -1,7 +1,6 @@
 # Once virtual server is setup on AWS proceed to do the followwing
 
-
-## update and upgrade ubuntu
+**update and upgrade ubuntu**
 sudo apt update
 sudo apt upgrade
 
