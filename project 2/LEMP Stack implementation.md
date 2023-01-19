@@ -109,22 +109,28 @@ mysql -u example_user -p
 mysql> show databases;
 
 #creating a todo_list
-CREATE TABLE example_database.todo_list (
+
+`CREATE TABLE example_database.todo_list (
 mysql>     item_id INT AUTO_INCREMENT,
 mysql>     content VARCHAR(255),
 mysql>     PRIMARY KEY(item_id)
 mysql> );
+`
 
-#test the table by inserting a feew rows of content and then test to see that data entry was successful
-mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");
-mysql>  SELECT * FROM example_database.todo_list;
+test the table by inserting a feew rows of content and then test to see that data entry was successful
 
-#after confirmation is successful create a php script that will connect to the MySQL database
-nano /var/www/projectLEMP/todo_list.php
+`mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");`
+
+` mysql>  SELECT * FROM example_database.todo_list;`
+
+after confirmation is successful create a php script that will connect to the MySQL database
+
+`nano /var/www/projectLEMP/todo_list.php`
 
 
----------------
 
+
+`
 <?php
 $user = "example_user";
 $password = "password";
@@ -142,9 +148,10 @@ try {
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
 }
-
+`
 
 ---------------
 
-#view php script in browser
-http://<IP_or_public_domain>/todo_lidt.php
+## view php script in browser
+`
+http://<IP_or_public_domain>/todo_lidt.php`
