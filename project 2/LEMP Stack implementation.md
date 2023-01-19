@@ -33,15 +33,17 @@ sudo apt install php-fpm php-mysql
 
 # Configure nginx to use php 
 
-sudo mkdir /var/www/projectLEMP
-sudo chown -R $USER:$USER /var/www/projectLEMP
-sudo nano /etc/nginx/sites-available/projectLEMP
+`sudo mkdir /var/www/projectLEMP`
+    
+`sudo chown -R $USER:$USER /var/www/projectLEMP`
+    
+`sudo nano /etc/nginx/sites-available/projectLEMP`
 
-------------------
 
-#/etc/nginx/sites-available/projectLEMP
 
-server {
+` /etc/nginx/sites-available/projectLEMP`
+
+` server {
     listen 80;
     server_name projectLEMP www.projectLEMP;
     root /var/www/projectLEMP;
@@ -63,7 +65,7 @@ server {
 
 }
 
-----------------------------------
+`
 
 ## STEP 4 activate nginx configuration located in the nginx sites-enabled directory ##
 sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/
@@ -80,41 +82,42 @@ sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/met
 
 ## STEP 5 - testing php with nginx to see if nginx can properly hand off .php files to the php processor##
 
-sudo nano /var/www/projectLEMP/info.php
-
-------------
-
-<?php
-phpinfo();
+`sudo nano /var/www/projectLEMP/info.php`
 
 
-------------
+`<?php phpinfo();
+`
 
 # remove file after checking information
-sudo rm /var/www/your_domain/info.php
+
+`sudo rm /var/www/your_domain/info.php`
 
 
 ## STEP 6 - retrieving data from sql database using php ##
 
-sudo mysql -p
+`sudo mysql -p
 mysql> CREATE DATABASE `example_database`;
 mysql> CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';
-mysql>exit
+mysql>exit`
 
 #testing user permission
-mysql -u example_user -p
+
+`mysql -u example_user -p`
 
 #once in the mysql console query the database structure
-mysql> show databases;
+
+`mysql> show databases;`
 
 #creating a todo_list
 
-`CREATE TABLE example_database.todo_list (
+`
+CREATE TABLE example_database.todo_list (
 mysql>     item_id INT AUTO_INCREMENT,
 mysql>     content VARCHAR(255),
 mysql>     PRIMARY KEY(item_id)
 mysql> );
+
 `
 
 test the table by inserting a feew rows of content and then test to see that data entry was successful
@@ -130,8 +133,7 @@ after confirmation is successful create a php script that will connect to the My
 
 
 
-`
-<?php
+`<?php
 $user = "example_user";
 $password = "password";
 $database = "example_database";
@@ -149,8 +151,6 @@ try {
     die();
 }
 `
-
----------------
 
 ## view php script in browser
 `
