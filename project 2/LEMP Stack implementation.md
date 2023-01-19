@@ -122,24 +122,28 @@ mysql> );
 
 test the table by inserting a feew rows of content and then test to see that data entry was successful
 
+
 `mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");`
+
 
 ` mysql>  SELECT * FROM example_database.todo_list;`
 
+
 after confirmation is successful create a php script that will connect to the MySQL database
+
 
 `nano /var/www/projectLEMP/todo_list.php`
 
-
+- Paste the following code intp the todo_list.php file
 
 
 `<?php
 $user = "example_user";
 $password = "password";
 $database = "example_database";
-$table = "todo_list";
+$table = "todo_list";`
 
-try {
+`try {
   $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
   echo "<h2>TODO</h2><ol>";
   foreach($db->query("SELECT content FROM $table") as $row) {
@@ -153,5 +157,6 @@ try {
 `
 
 ## view php script in browser
+
 `
 http://<IP_or_public_domain>/todo_lidt.php`
