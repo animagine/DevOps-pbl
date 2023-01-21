@@ -17,3 +17,14 @@ On the 'mysql server' install **MySQL server**.
 Open port 3306 on the inbound rules for the security group. Allow access only to the IP address of the 'mysql client' server
 
 ![Screenshot 2023-01-21 at 8 31 48 PM](https://user-images.githubusercontent.com/1076924/213890314-99ba0c4e-478f-43d6-ab39-5096b4211b95.png)
+
+---
+
+On the 'mysql server' edit the configuration file.
+
+`sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf`
+
+Replace '127.0.0.1' to '0.0.0.0.0' . This will allow the MySQL server to allow connections from remote hosts.
+
+### install MySQL client on the 'mysql client' server
+
