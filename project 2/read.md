@@ -1,7 +1,6 @@
 #STEP 1 -After setting up new EC2 instance, run updates and install nginx and verify it installs successfully
 
 
-
 sudo apt update
 sudo apt install nginx
 
