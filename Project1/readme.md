@@ -1,0 +1,97 @@
+#STEP1 - installing Apache2 and updating the firewall
+
+#update a list of packages in package manager
+sudo apt update
+
+#run apache2 package installation
+sudo apt install apache2
+
+#check apache2 status
+sudo systemctl status apache2
+
+#check if server can be accessed locally on machine
+curl http://localhost:80
+
+
+# test apache2's response to request on the internet via browser
+http://<insert public IP address from aws dashboard>:80
+
+
+###### STEP 2 - installing MySQL #########
+
+#installing MySQL
+sudo apt install mysql-server 
+sudo mysql
+
+#secure root user password
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
+
+
+###### STEP 3 installing PHP ######
+sudo apt install php libapache2-mod-php php-mysql
+php -v
+
+
+######### STEP 4 creating a virtual host on apache server#######
+
+
+#creating a new directory and changing file ownership
+sudo mkdir /var/www/projectlamp
+sudo chown -R $USER:$USER /var/www/projectlamp
+
+# i used nano here as my editor
+sudo nano /etc/apache2/sites-available/projectlamp.conf
+
+#inputing basic configuration for the server
+<VirtualHost *:80>
+    ServerName projectlamp
+    ServerAlias www.projectlamp 
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/projectlamp
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+
+
+# enabling the new virtual host and disabling the default apache2 website
+sudo a2ensite projectlamp
+sudo a2dissite 000-default
+
+#testing to see if the configuration works without errors
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+
+#creating a new file index.html in the directory
+sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
+'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html
+
+
+######## STEP 5 - Enabling PHP on the new site#########
+
+# changing the default root file from index..html to index.php
+sudo vim /etc/apache2/mods-enabled/dir.conf
+
+#replacing the content of the config file to reflect the changes
+<IfModule mod_dir.c>
+        #Change this:
+        #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+        #To this:
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>
+
+# reloading apache2 to reflect the changes
+sudo systemctl reload apache2
+
+
+
+
+# adding index..php to the root folder
+vim /var/www/projectlamp/index.php
+
+<?php
+phpinfo();
+
+
+#for security reasons, after checking the information of the php version installedd on your server, it should be removed
+sudo rm /var/www/projectlamp/index.php
