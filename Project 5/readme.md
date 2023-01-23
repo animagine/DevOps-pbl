@@ -28,3 +28,9 @@ Replace '127.0.0.1' to '0.0.0.0.0' . This will allow the MySQL server to allow c
 
 ### install MySQL client on the 'mysql client' server
 
+<img width="963" alt="Screenshot 2023-01-21 at 8 35 50 PM" src="https://user-images.githubusercontent.com/1076924/214049988-da764c28-3efc-4802-af66-a07e948bdac8.png">
+
+From the "mysql client" server, connect to the "mysql server" database engine remotely without using ssh. Connection must be done using the mysql utility to perform the action.
+
+<img width="1052" alt="Screenshot 2023-01-21 at 11 49 20 PM" src="https://user-images.githubusercontent.com/1076924/214051277-89b397aa-631d-419b-96a6-e70acb9d8e43.png">
+
