@@ -1,36 +1,46 @@
-#STEP1 - installing Apache2 and updating the firewall
+# STEP1 - installing Apache2 and updating the firewall
 
-#update a list of packages in package manager
-sudo apt update
+- update a list of packages in package manager
+`sudo apt update`
 
-#run apache2 package installation
-sudo apt install apache2
+- run apache2 package installation
 
-#check apache2 status
-sudo systemctl status apache2
+`sudo apt install apache2`
 
-#check if server can be accessed locally on machine
-curl http://localhost:80
+- check apache2 status
+
+`sudo systemctl status apache2`
+
+- check if server can be accessed locally on machine
+
+`curl http://localhost:80'
 
 
-# test apache2's response to request on the internet via browser
-http://<insert public IP address from aws dashboard>:80
+- test apache2's response to request on the internet via browser
+
+`http://<insert public IP address from aws dashboard>:80`
 
 
-###### STEP 2 - installing MySQL #########
+# STEP 2 - installing MySQL 
 
-#installing MySQL
+- installing MySQL
+```
 sudo apt install mysql-server 
 sudo mysql
 
-#secure root user password
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
+```
+
+- secure root user password
+
+`ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';`
 
 
-###### STEP 3 installing PHP ######
+# STEP 3 installing PHP 
+```
 sudo apt install php libapache2-mod-php php-mysql
 php -v
 
+```
 
 ######### STEP 4 creating a virtual host on apache server#######
 
