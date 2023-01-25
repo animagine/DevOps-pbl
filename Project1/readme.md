@@ -88,6 +88,8 @@ php -v
 </VirtualHost>
 
 ```
+<img width="927" alt="Screenshot 2023-01-25 at 4 14 12 PM" src="https://user-images.githubusercontent.com/1076924/214610733-cf7303fb-68ea-4d3c-9556-ac3adb4aee2f.png">
+
 
 # Enabling the new virtual host and disabling the default apache2 website
 
@@ -108,6 +110,8 @@ sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/met
 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html
 
 ```
+<img width="919" alt="Screenshot 2023-01-25 at 4 17 14 PM" src="https://user-images.githubusercontent.com/1076924/214611156-8f2e049a-f685-49d0-941e-a222b6ad393d.png">
+
 
 # STEP 5 - Enabling PHP on the new site
 
@@ -126,6 +130,9 @@ sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/met
 </IfModule>
 
 ```
+<img width="928" alt="Screenshot 2023-01-25 at 4 18 19 PM" src="https://user-images.githubusercontent.com/1076924/214611273-eaa31c1f-708f-4d04-94ed-e5422f3fc297.png">
+
+
 ---
 -  reloading apache2 to reflect the changes
 
@@ -134,7 +141,7 @@ sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/met
 
 
 
-- adding index..php to the root folder
+- adding index.php to the root folder
 
 `vim /var/www/projectlamp/index.php`
 
