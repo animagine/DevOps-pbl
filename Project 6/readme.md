@@ -111,8 +111,13 @@ sudo mkdir -p /home/recovery/logs
 
 ## Updating the 'ETC/FSTAB' FILE
 
+Good progress has been made! But there's more to be done.
 
+The UUID of the devices will be used to update the etc/fstab file in the folowing manner
 
+`sudo blkid`
 
+<img width="858" alt="Screenshot 2023-01-26 at 5 13 17 PM" src="https://user-images.githubusercontent.com/1076924/214891611-eafccb9a-974a-46e8-883d-6eac4a890294.png">
 
-`sudo mount /dev/webdata-vg/logs-lv /var/log`
+`sudo vi /etc/fstab`
+
