@@ -121,3 +121,19 @@ The UUID of the devices will be used to update the etc/fstab file in the folowin
 
 `sudo vi /etc/fstab`
 
+17. Test configuration and reload daemon
+
+`sudo mount -a`
+
+`sudo systemctl daaemon-reload`
+
+<img width="555" alt="Screenshot 2023-01-26 at 9 26 25 PM" src="https://user-images.githubusercontent.com/1076924/214943249-57a5c460-1782-446d-ace0-0d9cde74a00c.png">
+
+18. Having done that, I will verify the setup by runnung 
+
+`dh -f`
+
+## Preparing DB server
+
+
+
