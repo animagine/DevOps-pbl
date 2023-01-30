@@ -135,5 +135,99 @@ The UUID of the devices will be used to update the etc/fstab file in the folowin
 
 ## Preparing DB server
 
+19..  I will be setting up this server with the same configuration as the web server. Saave for a few differences. A DB volume that will contain all the data for the database. I will mount this volume on the /db directory.
 
 
+<img width="721" alt="Screenshot 2023-01-26 at 11 25 17 PM" src="https://user-images.githubusercontent.com/1076924/215357676-98f0c3d9-0f3f-46b7-8c8a-740278a23300.png">
+
+## Installing WordPress
+
+20. Update the server's filesystem, this in turn updates the repository
+
+`sudo yum -y update`
+
+21. Install wget, Apache and it's dependencies. 
+
+`sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json`
+
+22. Staart Apache
+
+```
+sudo systemctl enable httpd
+sudo systemctl start httpd
+
+```
+
+23. Install Php and it's dependencies
+
+```
+sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+sudo yum install yum-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+sudo yum module list php
+sudo yum module reset php
+sudo yum module enable php:remi-7.4
+sudo yum install php php-opcache php-gd php-curl php-mysqlnd
+sudo systemctl start php-fpm
+sudo systemctl enable php-fpm
+sudo setsebool -P httpd_execmem 1
+
+```
+
+<img width="1026" alt="Screenshot 2023-01-29 at 11 08 52 PM" src="https://user-images.githubusercontent.com/1076924/215358379-a630c34f-22fc-4dbc-96bc-be0b2964084a.png">
+
+
+24. Restart Apache
+
+`sudo systemctl restart httpd'
+
+25. Download WordPress and copy it to the /var/www/html directory
+
+```
+  mkdir wordpress
+  cd   wordpress
+  sudo wget http://wordpress.org/latest.tar.gz
+  sudo tar xzvf latest.tar.gz
+  sudo rm -rf latest.tar.gz
+  cp wordpress/wp-config-sample.php wordpress/wp-config.php
+  cp -R wordpress /var/www/html/
+  
+ ```
+26. Configure SELinux policies
+
+```
+sudo chown -R apache:apache /var/www/html/wordpress
+sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
+sudo setsebool -P httpd_can_network_connect=1
+
+```
+<img width="787" alt="Screenshot 2023-01-29 at 11 30 39 PM" src="https://user-images.githubusercontent.com/1076924/215359340-1f1f247e-f71c-4ec8-96dc-500ddfa51290.png">
+
+
+## Install mysql on DB server
+
+```
+sudo yum update
+sudo yum install mysql-server
+```
+
+Restart server after installation is complete
+
+```
+sudo systemctl restart mysqld
+sudo systemctl enable mysqld
+```
+<img width="723" alt="Screenshot 2023-01-29 at 11 41 06 PM" src="https://user-images.githubusercontent.com/1076924/215359924-a43152b6-2dfc-4960-8a6e-615b32e4adab.png">
+
+## Configure DB to work with WordPress
+
+```
+sudo mysql
+CREATE DATABASE wordpress;
+CREATE USER `myuser`@`<Web-Server-Private-IP-Address>` IDENTIFIED BY 'mypass';
+GRANT ALL PRIVILEGES ON *.* TO `myuser`@`<web-server-private-IP-Address>`WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+SHOW DATABASES;
+exit
+
+```
+## 
