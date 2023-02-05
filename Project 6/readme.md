@@ -267,7 +267,7 @@ Restart the httpd server
 
 Try to access the wordpress directory in your browser with the link below
 
-`http://<web-server-public-ip-address>
+`http://<web-server-public-ip-address>`
 
 <img width="1394" alt="Screenshot 2023-02-05 at 12 59 45 AM" src="https://user-images.githubusercontent.com/1076924/216794643-d55acc92-36fa-43d2-823d-900d76e669d2.png">
 
