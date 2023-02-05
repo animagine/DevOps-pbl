@@ -230,4 +230,50 @@ SHOW DATABASES;
 exit
 
 ```
-## 
+## install ysql client on Webserver
+
+`sudo yum install mysql`
+
+access the remote server uing the following command
+
+`mysql -u user -h <database server private ip> -p`
+
+![Screenshot 2023-02-04 at 11 33 37 PM](https://user-images.githubusercontent.com/1076924/216792601-0b8db86d-64da-4db9-9d44-9e38cd482438.png)
+
+## edit wp-config.php on the webserver
+
+`cd /var/www/html/`
+
+`sudo vi wp-config.php`
+
+![Screenshot 2023-02-05 at 12 47 38 AM](https://user-images.githubusercontent.com/1076924/216794355-60fe3503-cd8f-4db9-9905-1e226b5feb7e.png)
+
+edit the folowing parameters
+
+- the name of the database 
+- the database username
+- the database password
+- the database hostname
+
+
+![Screenshot 2023-02-05 at 12 56 14 AM](https://user-images.githubusercontent.com/1076924/216794596-f5c7ea04-14fc-480c-a7a9-6dc6a21bccbb.png)
+
+once done save and exit.
+
+Restart the httpd server
+
+`sudo systemctl restart httpd`
+
+
+Try to access the wordpress directory in your browser with the link below
+
+`http://<web-server-public-ip-address>
+
+<img width="1394" alt="Screenshot 2023-02-05 at 12 59 45 AM" src="https://user-images.githubusercontent.com/1076924/216794643-d55acc92-36fa-43d2-823d-900d76e669d2.png">
+
+fill out the credentials in the form.
+
+<img width="882" alt="Screenshot 2023-02-05 at 1 01 58 AM" src="https://user-images.githubusercontent.com/1076924/216794710-cbe24780-4cdc-46c3-83d2-978f2ca8f3fd.png">
+
+And we are done!
+
