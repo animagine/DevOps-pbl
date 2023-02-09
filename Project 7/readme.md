@@ -187,6 +187,13 @@ Will need to check which ports are used by the NFS open it using security groups
 - Connect to the Webserver 1
 `sudo yum update -y`
 
+- Install NFS client
+
+`sudo yum install nfs-utils nfs4-acl tools -y`
+
+- Mount /var/www and target the NFS server's export for apps
+
+
 ```
 sudo mkdir /var/www
 sudo mount -t nfs -o rw,nosuid <NFS-Server-Private-IP-Address>:/mnt/apps /var/www
@@ -195,5 +202,85 @@ sudo mount -t nfs -o rw,nosuid <NFS-Server-Private-IP-Address>:/mnt/apps /var/ww
 Verify the mount status of the NFS server by running `df -h`
 
 <img width="531" alt="Screenshot 2023-02-08 at 12 27 30 AM" src="https://user-images.githubusercontent.com/1076924/217390204-c0bc5ddb-ce07-480f-b344-4075843b1827.png">
+
+Having done that, open /etc/fstab and ensure the changes persist after reboot
+
+`sudo vi /etc/fstab`
+
+`<NFS-server-Private-IP-Address>:/mnt/apps /var/www nfs defaults 0 0`
+
+
+
+
+- Install Remi's repository, Apache and php
+
+```
+sudo yum install httpd -y
+
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+
+sudo dnf module reset php
+
+sudo dnf module enable php:remi-7.4
+
+sudo dnf install php php-opcache php-gd php-curl php-mysqlnd
+
+sudo systemctl start php-fpm
+
+sudo systemctl enable php-fpm
+
+sudo setsebool -P httpd_execmem 1
+
+```
+
+**This procedures will be repeated on the other 2 Webservers**
+
+-----
+
+- Locate the log folder for Apache on the Web server and mount it to the NFS server's export for logs.
+
+`sudo mount -t nfs -o rw,nosuid <NFS-Server-Private-IP-Address>:/mnt/logs /var/log/httpd`
+
+<img width="491" alt="Screenshot 2023-02-08 at 1 52 00 AM" src="https://user-images.githubusercontent.com/1076924/217400812-eaa13c5a-441a-4755-b0ad-288ea018b5bf.png">
+
+
+
+`sudo vi /etc/fstab`
+
+`<NFS-server-Private-IP-Address>:/mnt/logss /var/log/httpd nfs defaults 0 0`
+
+- check that the mount was a succeess by using th 'df -h' command.
+
+<img width="491" alt="Screenshot 2023-02-08 at 1 52 00 AM" src="https://user-images.githubusercontent.com/1076924/217401401-e0387ac6-9862-418c-a78a-22e34ef68e1d.png">
+
+---
+
+- Fork this "tooling" repo from [Darey.io Github Account](https://github.com/darey-io/tooling.git)
+
+- Additionally copy the contents of the html folder in the "tooling" directory to the /var/www/html directory
+
+`cd tooling`
+`sudo cp -R html/. /var/wwww/html`
+
+<img width="984" alt="Screenshot 2023-02-08 at 2 13 53 AM" src="https://user-images.githubusercontent.com/1076924/217403305-044e5d7d-70a1-490b-aec5-6e736d000252.png">
+
+- Once that is done update the website's configuration to connect to the database by editiing the functions.php file in /var/www/html/functions.php.
+Apply tooling-db.sql script to the database using this command 
+
+`mysql -h <databse-private-ip> -u <db-username> -p <db-pasword> < tooling-db.sql`
+
+- Open the website in your browser 
+
+`http://<Web-Server-Public-IP-Address-or-Public-DNS-Name>/index.php`
+
+<img width="666" alt="Screenshot 2023-02-08 at 10 10 37 PM" src="https://user-images.githubusercontent.com/1076924/217832461-713277ba-5d38-4384-81ba-7b245510300b.png">
+
+-  login with username and password.
+
+![Screenshot 2023-02-09 at 2 38 20 PM](https://user-images.githubusercontent.com/1076924/217832572-600e5ce9-183e-48c0-8dea-cb1716c3b3ba.png)
+
+
 
 
