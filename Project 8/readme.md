@@ -1,5 +1,8 @@
 # Load balancer solution with Apache
 
+
+![project8_final](https://user-images.githubusercontent.com/1076924/228159973-427c2473-88f9-4da7-9fc1-ff4b607c38e2.png)
+
 We will need to create an Ubuntu Server EC2 instance which will serve as a load balancer and open up TCP port 80.
 
 We will also need to install Apache and configure it to pint all traffic coming to the Load Balancer to both webservers.
@@ -56,7 +59,23 @@ We add the following instructions in the <VirtualHost *:80> </VirtualHost>
 
 After making these changes, we can verify that it works by trying to accessthe Load Balancer's public IP address or Public DNS names from the browser.
 
-`http://<Load-Balancer-Public-IP-Address-or-Public-DNS-Name>/index.php
-`
+`http://<Load-Balancer-Public-IP-Address-or-Public-DNS-Name>/index.php`
+
+<img width="977" alt="Screenshot 2023-03-28 at 8 02 07 AM" src="https://user-images.githubusercontent.com/1076924/228157907-e6ca0b3c-1efa-4a17-9613-a376953a253b.png">
+
+## Configuring Local DNS names resolution
+
+We need to open up the hosts file
+
+`sudo vi /etc/hosts`
+
+And then add 2 records into this file with local IP addresses of arbitrary names for both webservers
+
+```
+<WebServer1-Private-IP-Address> Web1
+<WebServer2-Private-IP-Address> Web2
+
+```
+![Screenshot 2023-03-28 at 8 22 18 AM](https://user-images.githubusercontent.com/1076924/228159499-34641a5f-4831-4fc9-bd54-61301ff8006b.png)
 
 
