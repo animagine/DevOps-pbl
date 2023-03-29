@@ -37,6 +37,9 @@ server {
 #comment out this line
 #       include /etc/nginx/sites-enabled/*;
 
+![Screenshot 2023-03-29 at 2 30 46 PM](https://user-images.githubusercontent.com/1076924/228620954-e2a0e58a-7a39-4d3b-bf9a-11629162043e.png)
+
+
 ```
 After doing this we need to restart the nginx service and also ensure that it is running
 
@@ -63,5 +66,61 @@ Once the domain name has been acquired, on the aws console, search for "Route 53
 
 ![Screenshot 2023-03-29 at 1 43 56 PM](https://user-images.githubusercontent.com/1076924/228620580-6c0a40e2-8df3-4db5-b9f2-cb296981f06a.png)
 
+## continue configuration of reverse proxy on the Nginx config file
+
+- We need to remove the default page in the nginx directory
+
+`sudo rm -f /etc/nginx/sites-enabled/default`
+
+- We need to check if nginx is successfully configured using the following command
+
+ `sudo nginx -t`
+
+ - Change directory to the nginx/sites-enabled directory
+
+`cd /etc/nginx/sites-enabled/`
+
+- Then run the following command within that directory
+
+`sudo ln -s ../sites-available/nginx.conf`
+
+- Reload nginx service.
+
+` sudo systemctl reload nginx`
+
+-  Enter domain name in browser to test configuration
+-  
+![Screenshot 2023-03-29 at 9 32 03 PM](https://user-images.githubusercontent.com/1076924/228660528-ec29ffb2-b030-4f8b-ad0b-2c322f16c11a.png)
+
+## Installing Certbot certificate for ssl
+
+` sudo apt install certbot -y`
+
+We also need to install a module that the certbot depends on to run effectively
+
+`sudo apt install python3-certbot-nginx -y`
+
+check nginx syntax and then reload the nginx service.
+
+`sudo nginx -t && sudo nginx -s reload`
+
+## create ssl certificate for domain name
+
+`sudo certbot --nginx -d mruforious.com.ng -d www.mruforious.com.ng`
+
+![Screenshot 2023-03-29 at 10 05 51 PM](https://user-images.githubusercontent.com/1076924/228667504-b44aa020-cf28-4cf5-937d-dd458191ea49.png)
+
+-  Reload the browser and see the changes 
+
+![Screenshot 2023-03-29 at 10 33 33 PM](https://user-images.githubusercontent.com/1076924/228672903-a079d010-5ee7-486f-aeb2-7fcdb352657d.png)
+
+
+## setup procedural renewal of ssl certificate
+
+`sudo certbot renew --dry-run`
+
+Add the following line
+
+`* */12 * * *   root /usr/bin/certbot renew > /dev/null 2>&1`
 
 
