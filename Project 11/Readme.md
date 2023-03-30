@@ -7,4 +7,8 @@ What we will accomplish
 1.  Install and configure Ansible client to act as a jump server/bastion host
 2.  Create a simple Ansible playbook to automate servers configuration
 
+====
 
+ `sudo apt update`
+ 
+ `sudo apt install ansible`
